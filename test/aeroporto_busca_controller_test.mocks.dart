@@ -3,14 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i6;
 import 'dart:ui' as _i8;
 
 import 'package:aeroporto_clima_app/controllers/aeroporto_clima_controller.dart'
-    as _i6;
-import 'package:aeroporto_clima_app/models/aeroporto_clima_model.dart' as _i2;
-import 'package:aeroporto_clima_app/services/cptec_service.dart' as _i3;
-import 'package:get/get.dart' as _i4;
+    as _i4;
+import 'package:aeroporto_clima_app/models/aeroporto_clima_model.dart' as _i5;
+import 'package:aeroporto_clima_app/services/cptec_service.dart' as _i2;
+import 'package:get/get.dart' as _i3;
 import 'package:get/get_state_manager/src/simple/list_notifier.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -29,9 +29,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: subtype_of_sealed_class
 // ignore_for_file: invalid_use_of_internal_member
 
-class _FakeAeroportoClima_0 extends _i1.SmartFake
-    implements _i2.AeroportoClima {
-  _FakeAeroportoClima_0(
+class _FakeCptecService_0 extends _i1.SmartFake implements _i2.CptecService {
+  _FakeCptecService_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -40,8 +39,8 @@ class _FakeAeroportoClima_0 extends _i1.SmartFake
         );
 }
 
-class _FakeCptecService_1 extends _i1.SmartFake implements _i3.CptecService {
-  _FakeCptecService_1(
+class _FakeRxBool_1 extends _i1.SmartFake implements _i3.RxBool {
+  _FakeRxBool_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -50,8 +49,8 @@ class _FakeCptecService_1 extends _i1.SmartFake implements _i3.CptecService {
         );
 }
 
-class _FakeRxBool_2 extends _i1.SmartFake implements _i4.RxBool {
-  _FakeRxBool_2(
+class _FakeRxString_2 extends _i1.SmartFake implements _i3.RxString {
+  _FakeRxString_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -60,8 +59,8 @@ class _FakeRxBool_2 extends _i1.SmartFake implements _i4.RxBool {
         );
 }
 
-class _FakeRxString_3 extends _i1.SmartFake implements _i4.RxString {
-  _FakeRxString_3(
+class _FakeRxn_3<T> extends _i1.SmartFake implements _i3.Rxn<T> {
+  _FakeRxn_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -70,8 +69,8 @@ class _FakeRxString_3 extends _i1.SmartFake implements _i4.RxString {
         );
 }
 
-class _FakeRxn_4<T> extends _i1.SmartFake implements _i4.Rxn<T> {
-  _FakeRxn_4(
+class _FakeRxList_4<E> extends _i1.SmartFake implements _i3.RxList<E> {
+  _FakeRxList_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -81,7 +80,7 @@ class _FakeRxn_4<T> extends _i1.SmartFake implements _i4.Rxn<T> {
 }
 
 class _FakeInternalFinalCallback_5<T> extends _i1.SmartFake
-    implements _i4.InternalFinalCallback<T> {
+    implements _i3.InternalFinalCallback<T> {
   _FakeInternalFinalCallback_5(
     Object parent,
     Invocation parentInvocation,
@@ -91,94 +90,78 @@ class _FakeInternalFinalCallback_5<T> extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [CptecService].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockCptecService extends _i1.Mock implements _i3.CptecService {
-  @override
-  _i5.Future<_i2.AeroportoClima> fetchClimaAeroporto(String? icaoCode) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #fetchClimaAeroporto,
-          [icaoCode],
-        ),
-        returnValue: _i5.Future<_i2.AeroportoClima>.value(_FakeAeroportoClima_0(
-          this,
-          Invocation.method(
-            #fetchClimaAeroporto,
-            [icaoCode],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i5.Future<_i2.AeroportoClima>.value(_FakeAeroportoClima_0(
-          this,
-          Invocation.method(
-            #fetchClimaAeroporto,
-            [icaoCode],
-          ),
-        )),
-      ) as _i5.Future<_i2.AeroportoClima>);
-}
-
 /// A class which mocks [AeroportoClimaController].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAeroportoClimaController extends _i1.Mock
-    implements _i6.AeroportoClimaController {
+    implements _i4.AeroportoClimaController {
   @override
-  _i3.CptecService get service => (super.noSuchMethod(
+  _i2.CptecService get service => (super.noSuchMethod(
         Invocation.getter(#service),
-        returnValue: _FakeCptecService_1(
+        returnValue: _FakeCptecService_0(
           this,
           Invocation.getter(#service),
         ),
-        returnValueForMissingStub: _FakeCptecService_1(
+        returnValueForMissingStub: _FakeCptecService_0(
           this,
           Invocation.getter(#service),
         ),
-      ) as _i3.CptecService);
+      ) as _i2.CptecService);
 
   @override
-  _i4.RxBool get isLoading => (super.noSuchMethod(
+  _i3.RxBool get isLoading => (super.noSuchMethod(
         Invocation.getter(#isLoading),
-        returnValue: _FakeRxBool_2(
+        returnValue: _FakeRxBool_1(
           this,
           Invocation.getter(#isLoading),
         ),
-        returnValueForMissingStub: _FakeRxBool_2(
+        returnValueForMissingStub: _FakeRxBool_1(
           this,
           Invocation.getter(#isLoading),
         ),
-      ) as _i4.RxBool);
+      ) as _i3.RxBool);
 
   @override
-  _i4.RxString get errorMessage => (super.noSuchMethod(
+  _i3.RxString get errorMessage => (super.noSuchMethod(
         Invocation.getter(#errorMessage),
-        returnValue: _FakeRxString_3(
+        returnValue: _FakeRxString_2(
           this,
           Invocation.getter(#errorMessage),
         ),
-        returnValueForMissingStub: _FakeRxString_3(
+        returnValueForMissingStub: _FakeRxString_2(
           this,
           Invocation.getter(#errorMessage),
         ),
-      ) as _i4.RxString);
+      ) as _i3.RxString);
 
   @override
-  _i4.Rxn<_i2.AeroportoClima> get climaCache => (super.noSuchMethod(
+  _i3.Rxn<_i5.AeroportoClima> get climaCache => (super.noSuchMethod(
         Invocation.getter(#climaCache),
-        returnValue: _FakeRxn_4<_i2.AeroportoClima>(
+        returnValue: _FakeRxn_3<_i5.AeroportoClima>(
           this,
           Invocation.getter(#climaCache),
         ),
-        returnValueForMissingStub: _FakeRxn_4<_i2.AeroportoClima>(
+        returnValueForMissingStub: _FakeRxn_3<_i5.AeroportoClima>(
           this,
           Invocation.getter(#climaCache),
         ),
-      ) as _i4.Rxn<_i2.AeroportoClima>);
+      ) as _i3.Rxn<_i5.AeroportoClima>);
 
   @override
-  set isLoading(_i4.RxBool? value) => super.noSuchMethod(
+  _i3.RxList<String> get searchHistory => (super.noSuchMethod(
+        Invocation.getter(#searchHistory),
+        returnValue: _FakeRxList_4<String>(
+          this,
+          Invocation.getter(#searchHistory),
+        ),
+        returnValueForMissingStub: _FakeRxList_4<String>(
+          this,
+          Invocation.getter(#searchHistory),
+        ),
+      ) as _i3.RxList<String>);
+
+  @override
+  set isLoading(_i3.RxBool? value) => super.noSuchMethod(
         Invocation.setter(
           #isLoading,
           value,
@@ -187,7 +170,7 @@ class MockAeroportoClimaController extends _i1.Mock
       );
 
   @override
-  set errorMessage(_i4.RxString? value) => super.noSuchMethod(
+  set errorMessage(_i3.RxString? value) => super.noSuchMethod(
         Invocation.setter(
           #errorMessage,
           value,
@@ -196,7 +179,7 @@ class MockAeroportoClimaController extends _i1.Mock
       );
 
   @override
-  set climaCache(_i4.Rxn<_i2.AeroportoClima>? value) => super.noSuchMethod(
+  set climaCache(_i3.Rxn<_i5.AeroportoClima>? value) => super.noSuchMethod(
         Invocation.setter(
           #climaCache,
           value,
@@ -205,7 +188,16 @@ class MockAeroportoClimaController extends _i1.Mock
       );
 
   @override
-  _i4.InternalFinalCallback<void> get onStart => (super.noSuchMethod(
+  set searchHistory(_i3.RxList<String>? value) => super.noSuchMethod(
+        Invocation.setter(
+          #searchHistory,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.InternalFinalCallback<void> get onStart => (super.noSuchMethod(
         Invocation.getter(#onStart),
         returnValue: _FakeInternalFinalCallback_5<void>(
           this,
@@ -215,10 +207,10 @@ class MockAeroportoClimaController extends _i1.Mock
           this,
           Invocation.getter(#onStart),
         ),
-      ) as _i4.InternalFinalCallback<void>);
+      ) as _i3.InternalFinalCallback<void>);
 
   @override
-  _i4.InternalFinalCallback<void> get onDelete => (super.noSuchMethod(
+  _i3.InternalFinalCallback<void> get onDelete => (super.noSuchMethod(
         Invocation.getter(#onDelete),
         returnValue: _FakeInternalFinalCallback_5<void>(
           this,
@@ -228,7 +220,7 @@ class MockAeroportoClimaController extends _i1.Mock
           this,
           Invocation.getter(#onDelete),
         ),
-      ) as _i4.InternalFinalCallback<void>);
+      ) as _i3.InternalFinalCallback<void>);
 
   @override
   bool get initialized => (super.noSuchMethod(
@@ -268,34 +260,44 @@ class MockAeroportoClimaController extends _i1.Mock
       );
 
   @override
-  _i5.Future<bool> fetchAndSaveClima(String? icaoCode) => (super.noSuchMethod(
+  _i6.Future<void> loadSearchHistory() => (super.noSuchMethod(
+        Invocation.method(
+          #loadSearchHistory,
+          [],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<bool> fetchAndSaveClima(String? icaoCode) => (super.noSuchMethod(
         Invocation.method(
           #fetchAndSaveClima,
           [icaoCode],
         ),
-        returnValue: _i5.Future<bool>.value(false),
-        returnValueForMissingStub: _i5.Future<bool>.value(false),
-      ) as _i5.Future<bool>);
+        returnValue: _i6.Future<bool>.value(false),
+        returnValueForMissingStub: _i6.Future<bool>.value(false),
+      ) as _i6.Future<bool>);
 
   @override
-  _i5.Future<void> loadSavedClima() => (super.noSuchMethod(
+  _i6.Future<void> loadSavedClima() => (super.noSuchMethod(
         Invocation.method(
           #loadSavedClima,
           [],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 
   @override
-  _i5.Future<void> clearSavedClima() => (super.noSuchMethod(
+  _i6.Future<void> clearSavedClima() => (super.noSuchMethod(
         Invocation.method(
           #clearSavedClima,
           [],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 
   @override
   void update([
