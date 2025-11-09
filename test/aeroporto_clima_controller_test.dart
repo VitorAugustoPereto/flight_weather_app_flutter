@@ -32,11 +32,13 @@ void main() {
       pressaoAtmosferica: 1010,
       visibilidade: '>10000',
       vento: 10,
-      direcaoVento: 'SE',
+      direcaoVento: 130,
       umidade: 80,
-      condicao: 'nb',
       condicaoDesc: 'Nublado',
-      temp: 20);
+      temp: 20,
+      nomeAeroporto: 'Aeroporto de Congonhas',
+      cidadeAeroporto: 'São Paulo',
+      rawMetar: 'METAR SBSP 011200Z 13010KT 9999 SCT025 20/18 Q1010');
 
   test('fetchAndSaveClima deve buscar dados e salvar no cache', () async {
     // Arrange

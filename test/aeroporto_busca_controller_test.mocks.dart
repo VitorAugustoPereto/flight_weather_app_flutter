@@ -95,10 +95,6 @@ class _FakeInternalFinalCallback_5<T> extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCptecService extends _i1.Mock implements _i3.CptecService {
-  MockCptecService() {
-    _i1.throwOnMissingStub(this);
-  }
-
   @override
   _i5.Future<_i2.AeroportoClima> fetchClimaAeroporto(String? icaoCode) =>
       (super.noSuchMethod(
@@ -113,6 +109,14 @@ class MockCptecService extends _i1.Mock implements _i3.CptecService {
             [icaoCode],
           ),
         )),
+        returnValueForMissingStub:
+            _i5.Future<_i2.AeroportoClima>.value(_FakeAeroportoClima_0(
+          this,
+          Invocation.method(
+            #fetchClimaAeroporto,
+            [icaoCode],
+          ),
+        )),
       ) as _i5.Future<_i2.AeroportoClima>);
 }
 
@@ -121,14 +125,14 @@ class MockCptecService extends _i1.Mock implements _i3.CptecService {
 /// See the documentation for Mockito's code generation for more information.
 class MockAeroportoClimaController extends _i1.Mock
     implements _i6.AeroportoClimaController {
-  MockAeroportoClimaController() {
-    _i1.throwOnMissingStub(this);
-  }
-
   @override
   _i3.CptecService get service => (super.noSuchMethod(
         Invocation.getter(#service),
         returnValue: _FakeCptecService_1(
+          this,
+          Invocation.getter(#service),
+        ),
+        returnValueForMissingStub: _FakeCptecService_1(
           this,
           Invocation.getter(#service),
         ),
@@ -141,6 +145,10 @@ class MockAeroportoClimaController extends _i1.Mock
           this,
           Invocation.getter(#isLoading),
         ),
+        returnValueForMissingStub: _FakeRxBool_2(
+          this,
+          Invocation.getter(#isLoading),
+        ),
       ) as _i4.RxBool);
 
   @override
@@ -150,12 +158,20 @@ class MockAeroportoClimaController extends _i1.Mock
           this,
           Invocation.getter(#errorMessage),
         ),
+        returnValueForMissingStub: _FakeRxString_3(
+          this,
+          Invocation.getter(#errorMessage),
+        ),
       ) as _i4.RxString);
 
   @override
   _i4.Rxn<_i2.AeroportoClima> get climaCache => (super.noSuchMethod(
         Invocation.getter(#climaCache),
         returnValue: _FakeRxn_4<_i2.AeroportoClima>(
+          this,
+          Invocation.getter(#climaCache),
+        ),
+        returnValueForMissingStub: _FakeRxn_4<_i2.AeroportoClima>(
           this,
           Invocation.getter(#climaCache),
         ),
@@ -195,6 +211,10 @@ class MockAeroportoClimaController extends _i1.Mock
           this,
           Invocation.getter(#onStart),
         ),
+        returnValueForMissingStub: _FakeInternalFinalCallback_5<void>(
+          this,
+          Invocation.getter(#onStart),
+        ),
       ) as _i4.InternalFinalCallback<void>);
 
   @override
@@ -204,30 +224,38 @@ class MockAeroportoClimaController extends _i1.Mock
           this,
           Invocation.getter(#onDelete),
         ),
+        returnValueForMissingStub: _FakeInternalFinalCallback_5<void>(
+          this,
+          Invocation.getter(#onDelete),
+        ),
       ) as _i4.InternalFinalCallback<void>);
 
   @override
   bool get initialized => (super.noSuchMethod(
         Invocation.getter(#initialized),
         returnValue: false,
+        returnValueForMissingStub: false,
       ) as bool);
 
   @override
   bool get isClosed => (super.noSuchMethod(
         Invocation.getter(#isClosed),
         returnValue: false,
+        returnValueForMissingStub: false,
       ) as bool);
 
   @override
   bool get hasListeners => (super.noSuchMethod(
         Invocation.getter(#hasListeners),
         returnValue: false,
+        returnValueForMissingStub: false,
       ) as bool);
 
   @override
   int get listeners => (super.noSuchMethod(
         Invocation.getter(#listeners),
         returnValue: 0,
+        returnValueForMissingStub: 0,
       ) as int);
 
   @override
@@ -246,6 +274,7 @@ class MockAeroportoClimaController extends _i1.Mock
           [icaoCode],
         ),
         returnValue: _i5.Future<bool>.value(false),
+        returnValueForMissingStub: _i5.Future<bool>.value(false),
       ) as _i5.Future<bool>);
 
   @override
@@ -318,6 +347,7 @@ class MockAeroportoClimaController extends _i1.Mock
           [listener],
         ),
         returnValue: () {},
+        returnValueForMissingStub: () {},
       ) as _i7.Disposer);
 
   @override
@@ -395,6 +425,7 @@ class MockAeroportoClimaController extends _i1.Mock
           ],
         ),
         returnValue: () {},
+        returnValueForMissingStub: () {},
       ) as _i7.Disposer);
 
   @override
