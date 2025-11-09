@@ -32,7 +32,7 @@ String _getConditions(Map? data) {
   if (conditions == null || (conditions as List).isEmpty) {
     return 'Céu limpo';
   }
-  return (conditions as List).map((c) => c['text']).join(', ');
+  return (conditions).map((c) => c['text']).join(', ');
 }
 
 // --- CORREÇÃO DA PRESSÃO (NOVA FUNÇÃO HELPER) ---

@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import '../models/aeroporto_clima_model.dart';
-import 'package:flutter/services.dart';
 
 class CptecService {
   final String _apiKey = '94595a45b97e4157b50e8ccc5422f8e8';
@@ -33,9 +32,9 @@ class CptecService {
         throw Exception('Falha ao carregar dados (Erro: ${response.statusCode})');
       }
     } 
-    on http.ClientException catch (e) {
+    on http.ClientException {
       throw Exception('Erro de conexão: Verifique sua internet.');
-    } on FormatException catch (e) {
+    } on FormatException {
       throw Exception('A API retornou uma resposta inválida.');
     } catch (e) {
       throw Exception('Ocorreu um erro desconhecido: $e');
