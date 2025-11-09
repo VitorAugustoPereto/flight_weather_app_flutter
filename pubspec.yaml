@@ -1,0 +1,35 @@
+name: aeroporto_clima_app
+description: App de consulta de clima em aeroportos por ICAO.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # Conectividade
+  http: ^1.2.1
+  
+  # Gerenciamento de Estado e Navegação
+  get: ^4.6.6
+  
+  # Persistência
+  shared_preferences: ^2.2.3
+  
+  # Para formatar datas
+  intl: ^0.18.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  
+  # Testes de Mock
+  mockito: ^5.4.4
+  build_runner: ^2.4.9
+
+flutter:
+  uses-material-design: true

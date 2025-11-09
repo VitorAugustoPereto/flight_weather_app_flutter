@@ -1,0 +1,28 @@
+^C:\USERS\LEONA\DESKTOP\APP_CONDICAOAEROPORTO\BUILD\WINDOWS\X64\CMAKEFILES\D3FD9D6A7875B6699D23CE3B60D07B39\FLUTTER_WINDOWS.DLL.RULE
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E env FLUTTER_ROOT=C:\Users\leona\Documents\flutter PROJECT_DIR=C:\Users\leona\Desktop\app_condicaoAeroporto FLUTTER_ROOT=C:\Users\leona\Documents\flutter FLUTTER_EPHEMERAL_DIR=C:\Users\leona\Desktop\app_condicaoAeroporto\windows\flutter\ephemeral PROJECT_DIR=C:\Users\leona\Desktop\app_condicaoAeroporto FLUTTER_TARGET=C:\Users\leona\Desktop\app_condicaoAeroporto\lib\main.dart DART_DEFINES=RkxVVFRFUl9WRVJTSU9OPTMuMzUuNw==,RkxVVFRFUl9DSEFOTkVMPXN0YWJsZQ==,RkxVVFRFUl9HSVRfVVJMPWh0dHBzOi8vZ2l0aHViLmNvbS9mbHV0dGVyL2ZsdXR0ZXIuZ2l0,RkxVVFRFUl9GUkFNRVdPUktfUkVWSVNJT049YWRjOTAxMDYyNQ==,RkxVVFRFUl9FTkdJTkVfUkVWSVNJT049MDM1MzE2NTY1YQ==,RkxVVFRFUl9EQVJUX1ZFUlNJT049My45LjI= DART_OBFUSCATION=false TRACK_WIDGET_CREATION=true TREE_SHAKE_ICONS=false PACKAGE_CONFIG=C:\Users\leona\Desktop\app_condicaoAeroporto\.dart_tool\package_config.json C:/Users/leona/Documents/flutter/packages/flutter_tools/bin/tool_backend.bat windows-x64 Debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LEONA\DESKTOP\APP_CONDICAOAEROPORTO\BUILD\WINDOWS\X64\CMAKEFILES\1298146A309423F500592E3C86029F17\FLUTTER_ASSEMBLE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LEONA\DESKTOP\APP_CONDICAOAEROPORTO\WINDOWS\FLUTTER\CMAKELISTS.TXT
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/leona/Desktop/app_condicaoAeroporto/windows -BC:/Users/leona/Desktop/app_condicaoAeroporto/build/windows/x64 --check-stamp-file C:/Users/leona/Desktop/app_condicaoAeroporto/build/windows/x64/flutter/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
