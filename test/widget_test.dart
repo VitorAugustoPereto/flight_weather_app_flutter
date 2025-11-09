@@ -13,7 +13,7 @@ void main() {
   testWidgets('BuscaAeroportoPage should display correctly', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     // We start at the '/busca' route.
-    await tester.pumpWidget(MyApp(initialRoute: '/busca'));
+    await tester.pumpWidget(const MyApp(initialRoute: '/busca'));
 
     // Verify that the search page widgets are present.
     expect(find.byType(TextField), findsOneWidget);

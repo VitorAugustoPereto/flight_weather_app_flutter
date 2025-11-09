@@ -1,45 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'controllers/aeroporto_busca_controller.dart';
 import 'controllers/aeroporto_clima_controller.dart';
 import 'services/cptec_service.dart';
 import 'shared/app_routes.dart';
 
-// 1. Criamos a classe de Bindings
+// A classe de Bindings permanece a mesma
 class AppBindings extends Bindings {
   @override
   void dependencies() {
-    
-    // --- CORREÇÃO: 'fenix: true' AQUI TAMBÉM ---
-    Get.lazyPut<CptecService>(() => CptecService(), fenix: true); 
-    // -------------------------------------------
+    Get.lazyPut<CptecService>(() => CptecService(), fenix: true);
     
     Get.lazyPut<AeroportoClimaController>(() => AeroportoClimaController(
       service: Get.find(),
-    ), fenix: true); 
+    ), fenix: true);
 
     Get.lazyPut<AeroportoBuscaController>(() => AeroportoBuscaController(
-      climaController: Get.find() 
-    ), fenix: true); 
+      climaController: Get.find(),
+    ), fenix: true);
   }
 }
 
-// ... (O resto do arquivo 'main.dart' permanece igual) ...
+// O main.dart fica muito mais simples
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('pt_BR', null);
-  final prefs = await SharedPreferences.getInstance();
-  final icaoCode = prefs.getString('saved_icao_code');
-  final String initialRoute = (icaoCode != null) ? '/detalhes' : '/busca';
   
-  runApp(MyApp(initialRoute: initialRoute));
+  // A lógica de qual rota iniciar foi movida para a HomePage
+  runApp(const MyApp(initialRoute: '',));
 }
 
 class MyApp extends StatelessWidget {
-  final String initialRoute;
-  const MyApp({super.key, required this.initialRoute});
+  const MyApp({super.key, required String initialRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +43,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      // 1. Inicia os bindings
       initialBinding: AppBindings(),
-      initialRoute: initialRoute,
+      // 2. Aponta para a rota inicial que é a HomePage
+      initialRoute: AppRoutes.home,
+      // 3. Usa as rotas que definimos
       getPages: AppRoutes.routes,
     );
   }

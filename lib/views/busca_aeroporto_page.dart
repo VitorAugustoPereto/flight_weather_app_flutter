@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/aeroporto_busca_controller.dart';
+import '../controllers/aeroporto_clima_controller.dart';
 
-// --- LISTA ESTÁTICA ---
-// Mapa com os principais aeroportos do Brasil (ICAO: Nome)
 const Map<String, String> aeroportosBrasil = {
   'SBSP': 'Congonhas (São Paulo)',
   'SBGR': 'Guarulhos (São Paulo)',
@@ -20,12 +19,12 @@ const Map<String, String> aeroportosBrasil = {
   'SBBE': 'Val-de-Cans (Belém)',
   'SBEG': 'Eduardo Gomes (Manaus)',
 };
-// -----------------------
 
 class BuscaAeroportoPage extends StatelessWidget {
   BuscaAeroportoPage({super.key});
 
-  final AeroportoBuscaController controller = Get.find<AeroportoBuscaController>();
+  final AeroportoBuscaController buscaController = Get.find<AeroportoBuscaController>();
+  final AeroportoClimaController climaController = Get.find<AeroportoClimaController>();
   final Color primaryColor = Colors.teal;
 
   @override
@@ -38,24 +37,24 @@ class BuscaAeroportoPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // --- ÁREA DE BUSCA (TEXTFIELD) ---
+          // --- ÁREA DE BUSCA (sem alterações) ---
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
                 TextField(
-                  controller: controller.textController,
+                  controller: buscaController.textController,
                   decoration: const InputDecoration(
                     labelText: 'Digite o código ICAO (ex: SBSP)',
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.flight),
                   ),
                   textCapitalization: TextCapitalization.characters,
-                  onSubmitted: (_) => controller.buscarAeroporto(),
+                  onSubmitted: (_) => buscaController.buscarAeroporto(),
                 ),
                 const SizedBox(height: 16),
                 Obx(() {
-                  if (controller.isLoading.value) {
+                  if (buscaController.isLoading.value) {
                     return ElevatedButton(
                       onPressed: null,
                       style: ElevatedButton.styleFrom(
@@ -65,9 +64,8 @@ class BuscaAeroportoPage extends StatelessWidget {
                       child: const CircularProgressIndicator(color: Colors.white),
                     );
                   }
-                  
                   return ElevatedButton(
-                    onPressed: controller.buscarAeroporto,
+                    onPressed: buscaController.buscarAeroporto,
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(double.infinity, 50),
                       backgroundColor: primaryColor,
@@ -78,10 +76,10 @@ class BuscaAeroportoPage extends StatelessWidget {
                 }),
                 const SizedBox(height: 12),
                 Obx(() {
-                  if (controller.errorMessage.value.isNotEmpty) {
+                  if (buscaController.errorMessage.value.isNotEmpty) {
                     return Center(
                       child: Text(
-                        controller.errorMessage.value,
+                        buscaController.errorMessage.value,
                         style: const TextStyle(color: Colors.red, fontSize: 16),
                         textAlign: TextAlign.center,
                       ),
@@ -93,49 +91,70 @@ class BuscaAeroportoPage extends StatelessWidget {
             ),
           ),
           
-          // --- DIVISOR E TÍTULO DA LISTA ---
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(children: [
-              const Expanded(child: Divider()),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text("ou selecione", style: TextStyle(color: Colors.grey[600])),
-              ),
-              const Expanded(child: Divider()),
-            ]),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Principais Aeroportos do Brasil',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: primaryColor),
-            ),
-          ),
-
-          // --- LISTA ESTÁTICA ---
+          // --- CORREÇÃO: LISTA ÚNICA PARA HISTÓRICO E AEROPORTOS ---
           Expanded(
-            child: ListView.builder(
-              itemCount: aeroportosBrasil.length,
-              itemBuilder: (context, index) {
-                final icao = aeroportosBrasil.keys.elementAt(index);
-                final nome = aeroportosBrasil.values.elementAt(index);
+            child: ListView(
+              children: [
+                // --- SEÇÃO DE HISTÓRICO (renderização condicional) ---
+                Obx(() {
+                  if (climaController.searchHistory.isEmpty) {
+                    return const SizedBox.shrink(); // Não renderiza nada se não houver histórico
+                  }
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                        child: Text('Histórico Recente', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.teal)),
+                      ),
+                      ...climaController.searchHistory.map((icao) {
+                        final nome = aeroportosBrasil[icao] ?? 'Aeroporto Desconhecido';
+                        return Card(
+                          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                          child: ListTile(
+                            leading: const Icon(Icons.history, color: Colors.grey),
+                            title: Text(icao), 
+                            subtitle: Text(nome),
+                            onTap: () {
+                              buscaController.textController.text = icao;
+                              buscaController.buscarAeroporto();
+                            },
+                          ),
+                        );
+                      }).toList(),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                        child: Divider(),
+                      ),
+                    ],
+                  );
+                }),
 
-                return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  child: ListTile(
-                    leading: Icon(Icons.flight_takeoff, color: primaryColor),
-                    title: Text(nome),
-                    subtitle: Text(icao),
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                    onTap: () {
-                      // Ao clicar, define o texto e busca
-                      controller.textController.text = icao;
-                      controller.buscarAeroporto();
-                    },
+                // --- SEÇÃO DE AEROPORTOS PRINCIPAIS (sempre visível) ---
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
+                  child: Text(
+                    'Principais Aeroportos do Brasil',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.teal),
+                    textAlign: TextAlign.center,
                   ),
-                );
-              },
+                ),
+                ...aeroportosBrasil.entries.map((entry) {
+                  return Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    child: ListTile(
+                      leading: Icon(Icons.flight_takeoff, color: primaryColor),
+                      title: Text(entry.value),
+                      subtitle: Text(entry.key),
+                      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                      onTap: () {
+                        buscaController.textController.text = entry.key;
+                        buscaController.buscarAeroporto();
+                      },
+                    ),
+                  );
+                }).toList(),
+              ],
             ),
           ),
         ],

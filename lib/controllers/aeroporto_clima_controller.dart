@@ -2,63 +2,86 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/aeroporto_clima_model.dart';
 import '../services/cptec_service.dart';
+import '../shared/app_routes.dart'; // Importar as rotas
 
 class AeroportoClimaController extends GetxController {
   final CptecService service;
   AeroportoClimaController({required this.service});
 
-  var isLoading = false.obs;
+  var isLoading = true.obs; // Iniciar como true
   var errorMessage = ''.obs;
-
-  // Cache do clima carregado (Rxn permite que seja nulo)
   var climaCache = Rxn<AeroportoClima>();
 
-  // Chave da persistência
-  static const String _icaoKey = 'saved_icao_code';
+  static const String _lastIcaoKey = 'last_saved_icao';
+  static const String _historyKey = 'search_history';
+  var searchHistory = <String>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    // Ao iniciar o app, tenta carregar o clima do ICAO salvo
-    loadSavedClima();
+    _initializeApp();
   }
 
-  // 1. Busca da API e salva na persistência
+  Future<void> _initializeApp() async {
+    await loadSearchHistory();
+    await loadSavedClima();
+    isLoading.value = false; // Finaliza o loading inicial
+  }
+
+  Future<void> _addToHistory(String icaoCode) async {
+    searchHistory.remove(icaoCode);
+    searchHistory.insert(0, icaoCode);
+    if (searchHistory.length > 5) {
+      searchHistory.removeRange(5, searchHistory.length);
+    }
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_historyKey, searchHistory.toList());
+  }
+
+  Future<void> loadSearchHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+    final history = prefs.getStringList(_historyKey);
+    if (history != null) {
+      searchHistory.assignAll(history);
+    }
+  }
+
   Future<bool> fetchAndSaveClima(String icaoCode) async {
     isLoading.value = true;
     errorMessage.value = '';
     try {
-      final clima = await service.fetchClimaAeroporto(icaoCode.toUpperCase());
-      climaCache.value = clima; // Salva em cache no GetX
+      final upperIcao = icaoCode.toUpperCase();
+      final clima = await service.fetchClimaAeroporto(upperIcao);
+      climaCache.value = clima; // Atualiza o cache
 
-      // Salva na persistência
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_icaoKey, icaoCode.toUpperCase());
-      return true; // Sucesso
+      await prefs.setString(_lastIcaoKey, upperIcao);
+      await _addToHistory(upperIcao);
+      
+      // Não há mais redirecionamento aqui, a HomePage cuida disso
+      return true;
+
     } catch (e) {
       errorMessage.value = e.toString().replaceFirst('Exception: ', '');
-      return false; // Falha
+      return false;
     } finally {
       isLoading.value = false;
     }
   }
 
-  // 2. Carrega da persistência
   Future<void> loadSavedClima() async {
     final prefs = await SharedPreferences.getInstance();
-    final icaoCode = prefs.getString(_icaoKey);
-
+    final icaoCode = prefs.getString(_lastIcaoKey);
     if (icaoCode != null) {
-      // Se encontrou um código, busca a previsão para ele
       await fetchAndSaveClima(icaoCode);
     }
   }
 
-  // 3. Limpa o salvo e volta para a busca
   Future<void> clearSavedClima() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_icaoKey);
+    await prefs.remove(_lastIcaoKey);
     climaCache.value = null; // Limpa o cache
-    Get.offAllNamed('/busca'); // Envia o usuário de volta para a tela de busca
+    // A HomePage vai reagir a essa mudança e mostrar a tela de busca
+    Get.offAllNamed(AppRoutes.home);
   }
 }
