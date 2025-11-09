@@ -1,4 +1,4 @@
-# app_feriados
+# Aplicativo para Verificação de tempo clima e informações uteis em aeroportos brasileiros
 
 A new Flutter project.
 
