@@ -86,7 +86,7 @@ class AeroportoClima {
     final Map<String, dynamic> json = jsonDecode(source);
     
     if (json['data'] == null || (json['data'] as List).isEmpty) {
-      throw FormatException('A resposta da CheckWX não contém dados (data).');
+      throw const FormatException('A resposta da CheckWX não contém dados (data).');
     }
     
     final Map<String, dynamic> data = json['data'][0];

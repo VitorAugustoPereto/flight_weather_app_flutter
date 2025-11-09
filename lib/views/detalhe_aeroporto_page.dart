@@ -5,7 +5,7 @@ import '../controllers/aeroporto_clima_controller.dart';
 import '../models/aeroporto_clima_model.dart';
 
 class DetalheAeroportoPage extends StatelessWidget {
-  DetalheAeroportoPage({Key? key}) : super(key: key);
+  DetalheAeroportoPage({super.key});
 
   final AeroportoClimaController controller = Get.find<AeroportoClimaController>();
   final Color primaryColor = Colors.teal;
@@ -17,9 +17,9 @@ class DetalheAeroportoPage extends StatelessWidget {
       // 1. Faz o parse da data (que vem como UTC/Zulu "Z")
       final data = DateTime.parse(dataIso); 
       // 2. Converte manualmente para BRT (-3), como você pediu
-      final dataBrasilia = data.subtract(Duration(hours: 3)); 
+      final dataBrasilia = data.subtract(const Duration(hours: 3)); 
       // 3. Formata a data
-      return DateFormat('dd/MM/yyyy \'às\' HH:mm', 'pt_BR').format(dataBrasilia) + ' (BRT)';
+      return '${DateFormat('dd/MM/yyyy \'às\' HH:mm', 'pt_BR').format(dataBrasilia)} (BRT)';
       // -----------------------------------
     } catch (e) {
       return 'Data indisponível'; 
@@ -51,7 +51,7 @@ class DetalheAeroportoPage extends StatelessWidget {
         final AeroportoClima? capital = controller.climaCache.value;
 
         if (controller.isLoading.value && capital == null) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         
         if (controller.errorMessage.value.isNotEmpty && capital == null) {
@@ -60,7 +60,7 @@ class DetalheAeroportoPage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 controller.errorMessage.value,
-                style: TextStyle(color: Colors.red, fontSize: 16),
+                style: const TextStyle(color: Colors.red, fontSize: 16),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -75,7 +75,7 @@ class DetalheAeroportoPage extends StatelessWidget {
                 // --- INFORMAÇÕES DE NOME E LOCAL ---
                 Text(
                   capital.nomeAeroporto,
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 Text(
@@ -83,7 +83,7 @@ class DetalheAeroportoPage extends StatelessWidget {
                   style: TextStyle(fontSize: 18, color: Colors.grey[600]),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 
                 // --- CARD DE TEMPERATURA ---
                 Card(
@@ -97,12 +97,12 @@ class DetalheAeroportoPage extends StatelessWidget {
                           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: primaryColor),
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         Text(
                           '${capital.temp}°C',
                           style: TextStyle(fontSize: 64, fontWeight: FontWeight.bold, color: primaryColor),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
                           // Agora mostrará o horário de Brasília
                           'Observado em: ${_formatarData(capital.atualizadoEm)}',
@@ -112,7 +112,7 @@ class DetalheAeroportoPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 // --- LISTA DE DETALHES ---
                 _buildDetalheItem(
@@ -146,7 +146,7 @@ class DetalheAeroportoPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'METAR (Raw Text)',
                           style: TextStyle(
                             color: Colors.white70,
@@ -154,10 +154,10 @@ class DetalheAeroportoPage extends StatelessWidget {
                             fontSize: 16,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           capital.rawMetar,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontFamily: 'monospace', 
                             fontSize: 14,
@@ -172,13 +172,13 @@ class DetalheAeroportoPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 24.0, bottom: 8.0),
                   child: ElevatedButton.icon(
-                    icon: Icon(Icons.search),
-                    label: Text('Buscar Outro Aeroporto'),
+                    icon: const Icon(Icons.search),
+                    label: const Text('Buscar Outro Aeroporto'),
                     onPressed: () {
                       controller.clearSavedClima();
                     },
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 50),
+                      minimumSize: const Size(double.infinity, 50),
                       backgroundColor: primaryColor.withOpacity(0.1),
                       foregroundColor: primaryColor,
                       elevation: 0, 
@@ -190,7 +190,7 @@ class DetalheAeroportoPage extends StatelessWidget {
           );
         }
         
-        return Center(child: Text('Nenhum aeroporto selecionado.'));
+        return const Center(child: Text('Nenhum aeroporto selecionado.'));
       }),
     );
   }
@@ -201,8 +201,8 @@ class DetalheAeroportoPage extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: ListTile(
         leading: Icon(icone, color: primaryColor, size: 30),
-        title: Text(titulo, style: TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(valor, style: TextStyle(fontSize: 16)),
+        title: Text(titulo, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(valor, style: const TextStyle(fontSize: 16)),
       ),
     );
   }

@@ -23,7 +23,7 @@ const Map<String, String> aeroportosBrasil = {
 // -----------------------
 
 class BuscaAeroportoPage extends StatelessWidget {
-  BuscaAeroportoPage({Key? key}) : super(key: key);
+  BuscaAeroportoPage({super.key});
 
   final AeroportoBuscaController controller = Get.find<AeroportoBuscaController>();
   final Color primaryColor = Colors.teal;
@@ -32,7 +32,7 @@ class BuscaAeroportoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Buscar Aeroporto (CPTEC)'),
+        title: const Text('Buscar Aeroporto (CPTEC)'),
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
       ),
@@ -45,7 +45,7 @@ class BuscaAeroportoPage extends StatelessWidget {
               children: [
                 TextField(
                   controller: controller.textController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Digite o código ICAO (ex: SBSP)',
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.flight),
@@ -53,36 +53,36 @@ class BuscaAeroportoPage extends StatelessWidget {
                   textCapitalization: TextCapitalization.characters,
                   onSubmitted: (_) => controller.buscarAeroporto(),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Obx(() {
                   if (controller.isLoading.value) {
                     return ElevatedButton(
                       onPressed: null,
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size(double.infinity, 50),
+                        minimumSize: const Size(double.infinity, 50),
                         backgroundColor: Colors.grey,
                       ),
-                      child: CircularProgressIndicator(color: Colors.white),
+                      child: const CircularProgressIndicator(color: Colors.white),
                     );
                   }
                   
                   return ElevatedButton(
                     onPressed: controller.buscarAeroporto,
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 50),
+                      minimumSize: const Size(double.infinity, 50),
                       backgroundColor: primaryColor,
                       foregroundColor: Colors.white,
                     ),
-                    child: Text('Buscar', style: TextStyle(fontSize: 16)),
+                    child: const Text('Buscar', style: TextStyle(fontSize: 16)),
                   );
                 }),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Obx(() {
                   if (controller.errorMessage.value.isNotEmpty) {
                     return Center(
                       child: Text(
                         controller.errorMessage.value,
-                        style: TextStyle(color: Colors.red, fontSize: 16),
+                        style: const TextStyle(color: Colors.red, fontSize: 16),
                         textAlign: TextAlign.center,
                       ),
                     );
@@ -97,12 +97,12 @@ class BuscaAeroportoPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(children: [
-              Expanded(child: Divider()),
+              const Expanded(child: Divider()),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text("ou selecione", style: TextStyle(color: Colors.grey[600])),
               ),
-              Expanded(child: Divider()),
+              const Expanded(child: Divider()),
             ]),
           ),
           Padding(
@@ -127,7 +127,7 @@ class BuscaAeroportoPage extends StatelessWidget {
                     leading: Icon(Icons.flight_takeoff, color: primaryColor),
                     title: Text(nome),
                     subtitle: Text(icao),
-                    trailing: Icon(Icons.arrow_forward_ios, size: 16),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                     onTap: () {
                       // Ao clicar, define o texto e busca
                       controller.textController.text = icao;
