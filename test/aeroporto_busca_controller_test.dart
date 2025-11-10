@@ -25,7 +25,7 @@ void main() {
 
     await tester.pumpWidget(
       GetMaterialApp(
-        home: Scaffold(),
+        home: const Scaffold(),
         getPages: [
           GetPage(name: '/detalhes', page: () => const Text('Página de Detalhes')),
         ],
