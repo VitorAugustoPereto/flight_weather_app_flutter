@@ -35,7 +35,7 @@ class CptecService {
     on http.ClientException {
       throw Exception('Erro de conexão: Verifique sua internet.');
     } on FormatException {
-      throw Exception('A API retornou uma resposta inválida.');
+      throw Exception('Código ICAO inválido');
     } catch (e) {
       throw Exception('Ocorreu um erro desconhecido: $e');
     }
