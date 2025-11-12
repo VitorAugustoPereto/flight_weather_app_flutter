@@ -176,6 +176,7 @@ class DetalheAeroportoPage extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(double.infinity, 50),
+                      // ignore: deprecated_member_use
                       backgroundColor: primaryColor.withOpacity(0.1),
                       foregroundColor: primaryColor,
                       elevation: 0, 

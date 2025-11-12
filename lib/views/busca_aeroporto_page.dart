@@ -120,7 +120,7 @@ class BuscaAeroportoPage extends StatelessWidget {
                             },
                           ),
                         );
-                      }).toList(),
+                      }),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                         child: Divider(),
@@ -152,7 +152,7 @@ class BuscaAeroportoPage extends StatelessWidget {
                       },
                     ),
                   );
-                }).toList(),
+                }),
               ],
             ),
           ),
