@@ -35,7 +35,7 @@ String _getConditions(Map? data) {
   return (conditions).map((c) => c['text']).join(', ');
 }
 
-// --- CORREÇÃO DA PRESSÃO (NOVA FUNÇÃO HELPER) ---
+//  FUNÇÃO HELPER
 // Esta função "lê" o texto cru do METAR (ex: "Q1011")
 int _parsePressureFromMetar(String rawMetar) {
   // Regex para encontrar "Q" seguido por 4 dígitos
@@ -43,13 +43,11 @@ int _parsePressureFromMetar(String rawMetar) {
   final match = regex.firstMatch(rawMetar);
   
   if (match != null && match.group(1) != null) {
-    // Encontrou! match.group(1) será "1011"
+    // Encontrou, match.group(1) será "1011"
     return int.tryParse(match.group(1)!) ?? 0;
   }
   return 0; // Não encontrou
 }
-// ------------------------------------------------
-
 
 class AeroportoClima {
   final String codigoIcao;
@@ -80,8 +78,6 @@ class AeroportoClima {
     required this.rawMetar,
   });
 
-
-  // --- FACTORY ATUALIZADO ---
   factory AeroportoClima.fromCheckWxJson(String source) {
     final Map<String, dynamic> json = jsonDecode(source);
     
@@ -91,18 +87,15 @@ class AeroportoClima {
     
     final Map<String, dynamic> data = json['data'][0];
     
-    // Pegamos o METAR cru primeiro, pois ele é nosso backup
     final String rawMetar = _getNestedValue(data, ['raw_text']) as String? ?? '';
 
-    // --- CORREÇÃO DA PRESSÃO (LÓGICA ATUALIZADA) ---
-    // 1. Tenta pegar o valor decodificado
+    // Tenta pegar o valor decodificado
     int pressao = _parseIntSafe(_getNestedValue(data, ['pressure', 'mb']));
     
-    // 2. Se falhar (der 0), usa nosso parser manual como fallback
+    // Se falhar (der 0), usa parser manual como fallback
     if (pressao == 0 && rawMetar.isNotEmpty) {
       pressao = _parsePressureFromMetar(rawMetar);
     }
-    // ------------------------------------------------
 
     return AeroportoClima(
       codigoIcao: _getNestedValue(data, ['icao']) as String? ?? '-',

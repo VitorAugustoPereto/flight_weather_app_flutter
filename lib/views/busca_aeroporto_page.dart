@@ -37,7 +37,7 @@ class BuscaAeroportoPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // --- ÁREA DE BUSCA (sem alterações) ---
+          // ÁREA DE BUSCA
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -91,11 +91,10 @@ class BuscaAeroportoPage extends StatelessWidget {
             ),
           ),
           
-          // --- CORREÇÃO: LISTA ÚNICA PARA HISTÓRICO E AEROPORTOS ---
           Expanded(
             child: ListView(
               children: [
-                // --- SEÇÃO DE HISTÓRICO (renderização condicional) ---
+                // SEÇÃO DE HISTÓRICO
                 Obx(() {
                   if (climaController.searchHistory.isEmpty) {
                     return const SizedBox.shrink(); // Não renderiza nada se não houver histórico
@@ -130,7 +129,7 @@ class BuscaAeroportoPage extends StatelessWidget {
                   );
                 }),
 
-                // --- SEÇÃO DE AEROPORTOS PRINCIPAIS (sempre visível) ---
+                // SEÇÃO DE AEROPORTOS PRINCIPAIS
                 const Padding(
                   padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
                   child: Text(

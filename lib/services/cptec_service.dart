@@ -4,7 +4,7 @@ import '../models/aeroporto_clima_model.dart';
 class CptecService {
   final String _apiKey = '94595a45b97e4157b50e8ccc5422f8e8';
 
-  // URL base da CheckWX
+  // URL base da CheckWX (API)
   final String _baseUrl = 'https://api.checkwx.com/metar';
 
   // Busca um aeroporto específico
