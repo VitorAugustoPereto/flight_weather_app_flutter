@@ -58,7 +58,6 @@ class AeroportoClimaController extends GetxController {
       await prefs.setString(_lastIcaoKey, upperIcao);
       await _addToHistory(upperIcao);
       
-      // Não há mais redirecionamento aqui, a HomePage cuida disso
       return true;
 
     } catch (e) {
@@ -81,7 +80,6 @@ class AeroportoClimaController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_lastIcaoKey);
     climaCache.value = null; // Limpa o cache
-    // A HomePage vai reagir a essa mudança e mostrar a tela de busca
     Get.offAllNamed(AppRoutes.home);
   }
 }

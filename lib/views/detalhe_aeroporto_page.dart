@@ -13,10 +13,9 @@ class DetalheAeroportoPage extends StatelessWidget {
   String _formatarData(String dataIso) {
     if (dataIso == '-') return '-'; 
     try {
-      // --- CORREÇÃO DO HORÁRIO (MANUAL) ---
-      // 1. Faz o parse da data (que vem como UTC/Zulu "Z")
+      // Faz o parse da data (que vem como UTC)
       final data = DateTime.parse(dataIso); 
-      // 2. Converte manualmente para BRT (-3), como você pediu
+      // Converte manualmente para BRT (-3)
       final dataBrasilia = data.subtract(const Duration(hours: 3)); 
       // 3. Formata a data
       return '${DateFormat('dd/MM/yyyy \'às\' HH:mm', 'pt_BR').format(dataBrasilia)} (BRT)';
@@ -28,7 +27,7 @@ class DetalheAeroportoPage extends StatelessWidget {
 
   String _formatarVisibilidade(String metros) {
     if (metros == 'Indisponível') return metros;
-    if (metros == '10 km ou mais') return metros; // Já está formatado
+    if (metros == '10 km ou mais') return metros;
     try {
       final metrosInt = int.tryParse(metros.replaceAll('>', '')) ?? 0;
       if (metrosInt >= 10000) return '10 km ou mais';
@@ -104,7 +103,6 @@ class DetalheAeroportoPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          // Agora mostrará o horário de Brasília
                           'Observado em: ${_formatarData(capital.atualizadoEm)}',
                           style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                         ),
@@ -118,7 +116,6 @@ class DetalheAeroportoPage extends StatelessWidget {
                 _buildDetalheItem(
                   icone: Icons.arrow_downward,
                   titulo: 'Pressão Atmosférica',
-                  // Agora mostrará o valor correto
                   valor: '${capital.pressaoAtmosferica} hPa', 
                 ),
                 _buildDetalheItem(
@@ -195,7 +192,6 @@ class DetalheAeroportoPage extends StatelessWidget {
     );
   }
 
-  // Helper (sem mudanças)
   Widget _buildDetalheItem({required IconData icone, required String titulo, required String valor}) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 6),

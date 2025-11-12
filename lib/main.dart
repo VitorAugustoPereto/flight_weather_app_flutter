@@ -6,7 +6,6 @@ import 'controllers/aeroporto_clima_controller.dart';
 import 'services/cptec_service.dart';
 import 'shared/app_routes.dart';
 
-// A classe de Bindings permanece a mesma
 class AppBindings extends Bindings {
   @override
   void dependencies() {
@@ -22,12 +21,10 @@ class AppBindings extends Bindings {
   }
 }
 
-// O main.dart fica muito mais simples
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('pt_BR', null);
   
-  // A lógica de qual rota iniciar foi movida para a HomePage
   runApp(const MyApp(initialRoute: '',));
 }
 
@@ -43,11 +40,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      // 1. Inicia os bindings
+      // Inicia os bindings
       initialBinding: AppBindings(),
-      // 2. Aponta para a rota inicial que é a HomePage
+      // Aponta para a rota inicial que é a HomePage
       initialRoute: AppRoutes.home,
-      // 3. Usa as rotas que definimos
       getPages: AppRoutes.routes,
     );
   }
